@@ -1,0 +1,46 @@
+         201807 function calls in 0.841 seconds
+
+   Ordered by: cumulative time
+   List reduced from 75 to 40 due to restriction <40>
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.006    0.006    0.846    0.846 core.py:91(run_python)
+        1    0.000    0.000    0.515    0.515 csv.py:227(writerows)
+        1    0.154    0.154    0.515    0.515 {method 'writerows' of '_csv.writer' objects}
+        1    0.185    0.185    0.318    0.318 core.py:61(aggregate_stream)
+    53598    0.119    0.000    0.265    0.000 csv.py:222(<genexpr>)
+    54097    0.162    0.000    0.162    0.000 {method 'get' of 'dict' objects}
+     8933    0.088    0.000    0.096    0.000 csv.py:216(_dict_to_list)
+     9994    0.033    0.000    0.045    0.000 core.py:25(parse_date)
+        1    0.023    0.023    0.036    0.036 {built-in method builtins.sorted}
+     8932    0.016    0.000    0.016    0.000 {built-in method builtins.round}
+     8932    0.014    0.000    0.014    0.000 core.py:88(<lambda>)
+    19998    0.010    0.000    0.010    0.000 {built-in method builtins.len}
+     8933    0.008    0.000    0.008    0.000 {method 'keys' of 'dict' objects}
+    10000    0.007    0.000    0.007    0.000 {method 'strip' of 'str' objects}
+     8932    0.004    0.000    0.004    0.000 core.py:63(<lambda>)
+     8933    0.004    0.000    0.004    0.000 {method 'append' of 'list' objects}
+        1    0.001    0.001    0.002    0.002 core.py:36(read_catalogue)
+        3    0.000    0.000    0.002    0.001 __init__.py:763(open)
+        3    0.002    0.001    0.002    0.001 {built-in method _io.open}
+        1    0.000    0.000    0.001    0.001 __init__.py:278(load)
+        1    0.000    0.000    0.001    0.001 __init__.py:1006(mkdir)
+        1    0.000    0.000    0.001    0.001 __init__.py:304(loads)
+        1    0.000    0.000    0.001    0.001 decoder.py:340(decode)
+        1    0.001    0.001    0.001    0.001 decoder.py:351(raw_decode)
+       68    0.000    0.000    0.001    0.000 <frozen codecs>:322(decode)
+        3    0.001    0.000    0.001    0.000 {method '__exit__' of '_io._IOBase' objects}
+        1    0.001    0.001    0.001    0.001 {built-in method nt.mkdir}
+        1    0.000    0.000    0.000    0.000 csv.py:199(__init__)
+       68    0.000    0.000    0.000    0.000 {built-in method _codecs.utf_8_decode}
+       90    0.000    0.000    0.000    0.000 core.py:16(parse_day)
+        1    0.000    0.000    0.000    0.000 {method 'read' of '_io.TextIOWrapper' objects}
+       90    0.000    0.000    0.000    0.000 {method 'isoformat' of 'datetime.date' objects}
+        1    0.000    0.000    0.000    0.000 __init__.py:674(is_dir)
+        5    0.000    0.000    0.000    0.000 __init__.py:190(__fspath__)
+        1    0.000    0.000    0.000    0.000 {built-in method nt._path_isdir}
+        5    0.000    0.000    0.000    0.000 __init__.py:251(__str__)
+        1    0.000    0.000    0.000    0.000 __init__.py:381(parent)
+        4    0.000    0.000    0.000    0.000 __init__.py:341(drive)
+        1    0.000    0.000    0.000    0.000 csv.py:212(writeheader)
+        1    0.000    0.000    0.000    0.000 {method 'lower' of 'str' objects}

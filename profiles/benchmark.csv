@@ -1,0 +1,4 @@
+engine,median_wall_seconds,median_tracemalloc_peak_bytes,speedup_vs_baseline,memory_reduction_vs_baseline
+baseline,466.04,735129242,1.0,1.0
+optimized_python,39.256038499996066,25820340,11.871804130211629,28.470935781635717
+polars,2.2513719997368753,20703572,207.0026632890822,35.507362787445565

@@ -1,0 +1,63 @@
+{
+  "baseline": {
+    "wall_seconds_each_run": [
+      618.444,
+      466.04,
+      364.373
+    ],
+    "median_wall_seconds": 466.04,
+    "tracemalloc_peak_bytes_each_run": [
+      735402880,
+      735129242,
+      735129186
+    ],
+    "median_tracemalloc_peak_bytes": 735129242,
+    "runs": 3,
+    "output_rows": 45000,
+    "note": "Measured directly by bench.py before the interrupted benchmark; values preserved from observed run output."
+  },
+  "optimized_python": {
+    "wall_seconds_each_run": [
+      38.30488980002701,
+      39.256038499996066,
+      53.33939149975777
+    ],
+    "median_wall_seconds": 39.256038499996066,
+    "tracemalloc_peak_bytes_each_run": [
+      25966344,
+      25820340,
+      25820260
+    ],
+    "median_tracemalloc_peak_bytes": 25820340,
+    "runs": 3,
+    "output_rows": 45000
+  },
+  "polars": {
+    "wall_seconds_each_run": [
+      6.538134099915624,
+      2.106221199966967,
+      2.2513719997368753
+    ],
+    "median_wall_seconds": 2.2513719997368753,
+    "tracemalloc_peak_bytes_each_run": [
+      36204341,
+      20703572,
+      20690604
+    ],
+    "median_tracemalloc_peak_bytes": 20703572,
+    "runs": 3,
+    "output_rows": 45000
+  },
+  "comparisons": {
+    "optimized_python": {
+      "speedup_vs_baseline": 11.871804130211629,
+      "memory_reduction_vs_baseline": 28.470935781635717
+    },
+    "polars": {
+      "speedup_vs_baseline": 207.0026632890822,
+      "memory_reduction_vs_baseline": 35.507362787445565
+    }
+  },
+  "output_equivalence": "passed: normalized CSV rows match baseline",
+  "profiles": "cProfile .prof and human-readable .txt saved for selected engines"
+}

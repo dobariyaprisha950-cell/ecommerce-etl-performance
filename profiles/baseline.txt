@@ -1,0 +1,46 @@
+         558290 function calls (558121 primitive calls) in 3.162 seconds
+
+   Ordered by: cumulative time
+   List reduced from 347 to 40 due to restriction <40>
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    1.447    1.447    3.162    3.162 pipeline_slow.py:9(run_baseline)
+    10000    0.066    0.000    0.953    0.000 {built-in method strptime}
+    10000    0.074    0.000    0.799    0.000 _strptime.py:812(_strptime_datetime_datetime)
+    10000    0.361    0.000    0.725    0.000 _strptime.py:516(_strptime)
+    10001    0.132    0.000    0.251    0.000 csv.py:173(__next__)
+        1    0.000    0.000    0.232    0.232 csv.py:227(writerows)
+        1    0.103    0.103    0.232    0.232 {method 'writerows' of '_csv.writer' objects}
+    10002    0.014    0.000    0.191    0.000 _strptime.py:29(_getlang)
+    10002    0.026    0.000    0.177    0.000 locale.py:581(getlocale)
+   123625    0.094    0.000    0.094    0.000 {method 'get' of 'dict' objects}
+    10002    0.093    0.000    0.094    0.000 {built-in method builtins.next}
+      4/1    0.000    0.000    0.088    0.088 <frozen importlib._bootstrap>:1360(_find_and_load)
+      4/1    0.000    0.000    0.087    0.087 <frozen importlib._bootstrap>:1308(_find_and_load_unlocked)
+      4/1    0.000    0.000    0.086    0.086 <frozen importlib._bootstrap>:914(_load_unlocked)
+      3/1    0.000    0.000    0.085    0.085 <frozen importlib._bootstrap_external>:753(exec_module)
+    53598    0.062    0.000    0.085    0.000 csv.py:222(<genexpr>)
+    10002    0.025    0.000    0.082    0.000 locale.py:469(_parse_localename)
+      9/3    0.000    0.000    0.081    0.027 <frozen importlib._bootstrap>:483(_call_with_frames_removed)
+    10002    0.069    0.000    0.069    0.000 {built-in method _locale.setlocale}
+        3    0.000    0.000    0.061    0.020 <frozen importlib._bootstrap_external>:826(get_code)
+    10002    0.031    0.000    0.057    0.000 locale.py:386(normalize)
+        3    0.000    0.000    0.056    0.019 __init__.py:763(open)
+        3    0.055    0.018    0.056    0.019 {built-in method _io.open}
+        1    0.034    0.034    0.050    0.050 {method 'sort' of 'list' objects}
+     9998    0.045    0.000    0.045    0.000 {method 'isoformat' of 'datetime.date' objects}
+     8933    0.038    0.000    0.044    0.000 csv.py:216(_dict_to_list)
+        1    0.000    0.000    0.042    0.042 <frozen importlib._bootstrap_external>:818(source_to_code)
+        1    0.042    0.042    0.042    0.042 {built-in method builtins.compile}
+      3/1    0.000    0.000    0.039    0.039 {built-in method builtins.exec}
+        1    0.000    0.000    0.039    0.039 _strptime.py:1(<module>)
+    10002    0.038    0.000    0.038    0.000 {method 'match' of 're.Pattern' objects}
+     9998    0.038    0.000    0.038    0.000 {method 'groupdict' of 're.Match' objects}
+    19618    0.032    0.000    0.032    0.000 {method 'append' of 'list' objects}
+40742/40705    0.028    0.000    0.028    0.000 {built-in method builtins.len}
+     8932    0.027    0.000    0.027    0.000 {built-in method builtins.round}
+     8932    0.016    0.000    0.016    0.000 pipeline_slow.py:37(<lambda>)
+    20001    0.015    0.000    0.015    0.000 csv.py:159(fieldnames)
+    18931    0.013    0.000    0.013    0.000 {method 'keys' of 'dict' objects}
+       29    0.000    0.000    0.012    0.000 __init__.py:330(_compile)
+        1    0.000    0.000    0.012    0.012 calendar.py:1(<module>)

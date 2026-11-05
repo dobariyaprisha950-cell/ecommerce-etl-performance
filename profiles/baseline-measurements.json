@@ -1,0 +1,17 @@
+{
+  "wall_seconds_each_run": [
+    618.444,
+    466.04,
+    364.373
+  ],
+  "median_wall_seconds": 466.04,
+  "tracemalloc_peak_bytes_each_run": [
+    735402880,
+    735129242,
+    735129186
+  ],
+  "median_tracemalloc_peak_bytes": 735129242,
+  "runs": 3,
+  "output_rows": 45000,
+  "note": "Measured directly by bench.py before the interrupted benchmark; values preserved from observed run output."
+}
