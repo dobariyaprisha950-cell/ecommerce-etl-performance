@@ -17,7 +17,7 @@ uv run pytest
 uv run mypy etl_pipeline
 ```
 
-The `polars` extra is optional; omit `--extra polars` for the standard-library fallback. Generated data and run CSVs are ignored by git, while benchmark results and profile artifacts are kept under `profiles/`. Benchmark measures Python allocation peak via `tracemalloc`; for process RSS on Linux, use `/usr/bin/time -v uv run python -m etl_pipeline.cli data/events.csv data/catalogue.json data/report.csv`. `bench.py --profile` saves cProfile artifacts and text summaries. py-spy is included in the dev extra. In this environment py-spy 0.4.3 could not identify the installed Python 3.14.7 process (`Failed to find python version from target process`), so no flame graphs were produced; cProfile artifacts are available instead.
+The `polars` extra is optional; omit `--extra polars` for the standard-library fallback. Generated data and run CSVs are ignored by git, while benchmark results and profile artifacts are kept under `profiles/`. Benchmark measures Python allocation peak via `tracemalloc`; for process RSS on Linux, use `/usr/bin/time -v uv run python -m etl_pipeline.cli data/events.csv data/catalogue.json data/report.csv`. `bench.py --profile` saves cProfile artifacts and text summaries. py-spy is included in the dev extra. On Windows, the venv launcher was not detected by py-spy 0.4.3; profiling through the base Python executable with `--idle` succeeded. The 1-million-row SVGs are `profiles/baseline_flamegraph.svg`, `profiles/optimized_flamegraph.svg`, and `profiles/polars_flamegraph.svg`; see REPORT.md for the exact commands and observations.
 
 ## Project files
 

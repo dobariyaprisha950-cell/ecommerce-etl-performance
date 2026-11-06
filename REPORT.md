@@ -30,15 +30,43 @@ Individual run values and calculations are in [`profiles/benchmark.json`](profil
 
 ## Profiling evidence
 
-cProfile binary profiles and human-readable summaries are saved under `profiles/`. The baseline and optimized Python sample profiles use the same reproducible 10,000-row subset; separate full-data profiles are also saved for optimized Python and Polars. py-spy 0.4.3 was installed, but its flame-graph command failed with `Failed to find python version from target process` on this Python 3.14.7 installation. No py-spy flame graphs were generated. Try again with a py-spy-supported interpreter if SVG flame graphs are required.
+cProfile binary profiles and human-readable summaries are saved under `profiles/`. The baseline and optimized Python sample profiles use the same reproducible 10,000-row subset; separate full-data profiles are also saved for optimized Python and Polars. The first py-spy attempt through the venv launcher could not detect the interpreter; the direct-base-interpreter workaround and resulting full-data flame graphs are detailed below.
+
+## py-spy Flame Graph Analysis
+
+The three flame graphs below were generated on Windows x64 with Python 3.14.7 and py-spy 0.4.3 using the same one-million-row `data/events.csv` file, the same 500-product catalogue, and 100 samples per second. py-spy's [official README documents Windows and recent CPython support](https://github.com/benfred/py-spy/blob/master/README.md), and its [v0.4.2 release notes include Python 3.14 support](https://github.com/benfred/py-spy/releases/tag/v0.4.2). Each run completed with zero py-spy sampling errors. `--idle` was enabled so I/O wait frames were retained. The SVG sample counts describe profiler samples; they are not separate timing measurements.
+
+Commands used from the project root in PowerShell:
+
+```powershell
+$env:PYTHONPATH = (Join-Path (Get-Location) '.venv\Lib\site-packages')
+$python = (& .\.venv\Scripts\python.exe -c "import sys; print(sys._base_executable)")
+$pySpy = '.\.venv\Scripts\py-spy.exe'
+
+& $pySpy record --output profiles\baseline_flamegraph.svg --format flamegraph --idle -- $python pipeline_slow.py data\events.csv data\catalogue.json data\flame-baseline.csv
+& $pySpy record --output profiles\optimized_flamegraph.svg --format flamegraph --idle -- $python -m etl_pipeline.cli data\events.csv data\catalogue.json data\flame-optimized.csv
+& $pySpy record --output profiles\polars_flamegraph.svg --format flamegraph --idle -- $python -m etl_pipeline.cli data\events.csv data\catalogue.json data\flame-polars.csv --engine polars
+```
+
+The virtual-environment Python launcher initially failed py-spy's interpreter detection. Calling the underlying Python executable via `sys._base_executable` worked without changing or downgrading the project's Python environment. A sleeping smoke-test process also produced no stack counts until `--idle` was added; with that option it generated a valid test graph. No separate Python 3.12/3.13 environment was needed.
+
+| Engine | SVG | Samples | Sampling errors |
+|---|---|---:|---:|
+| Baseline | [baseline_flamegraph.svg](profiles/baseline_flamegraph.svg) | 7,550 | 0 |
+| Optimized Python | [optimized_flamegraph.svg](profiles/optimized_flamegraph.svg) | 680 | 0 |
+| Polars | [polars_flamegraph.svg](profiles/polars_flamegraph.svg) | 230 | 0 |
+
+The baseline graph is dominated by `datetime.strptime` and its `_strptime`/locale work; frames in the baseline loop also show time in the repeated catalogue and aggregation passes. In the optimized Python graph, the remaining Python work centers on streaming aggregation and timestamp validation/date-key parsing. The Polars graph spends most of its sampled processing time under the lazy `collect` call; py-spy sees the Python-to-native boundary but does not expand the Polars Rust execution into Python frames. These observations describe sampled stacks, while the measured wall-time comparisons remain those in the benchmark table above.
 
 ## Validation
 
-- `pytest`: **9 passed**, including the 10,000-row baseline/optimized equivalence test and Hypothesis property test.
+- `uv run pytest`: **9 passed**, including the 10,000-row baseline/optimized equivalence test and Hypothesis property test. In this sandbox, pytest used `PYTEST_ADDOPTS='--basetemp=data/pytest-temp -p no:cacheprovider'` because the default `%TEMP%` location was not accessible.
 - `mypy --strict etl_pipeline`: **passed**, no issues in 4 source files.
+- `uv run mypy etl_pipeline tests`: **passed**, no issues in 5 source files.
 - Million-row baseline, optimized Python, and Polars output equivalence: **passed** (45,000 output rows each).
+- All three generated flame graph files parsed as valid SVG XML.
 - Generated CSV/JSON data and run outputs are ignored by Git; benchmark and profile evidence remain trackable.
 
 ## Conclusion
 
-On this Windows host with Python 3.14.7, the optimized Python implementation achieved an 11.87× speed-up and 28.47× reduction in measured Python allocation peak compared with the intentionally inefficient baseline. Polars achieved 207.00× speed-up and 35.51× allocation reduction. The 10× speed and 3× memory objectives are met. RSS measurements and py-spy flame graphs remain unavailable from this Windows/Python 3.14.7 profiling setup.
+On this Windows host with Python 3.14.7, the optimized Python implementation achieved an 11.87× speed-up and 28.47× reduction in measured Python allocation peak compared with the intentionally inefficient baseline. Polars achieved 207.00× speed-up and 35.51× allocation reduction. The 10× speed and 3× memory objectives are met. Baseline, optimized Python, and Polars py-spy flame graphs are available. Process RSS was not measured on this Windows host.
