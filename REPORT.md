@@ -18,11 +18,14 @@ Profiling showed timestamp parsing and per-row overhead dominated Python process
 
 The benchmark ran each engine three times on the generated million-row file. Each run was timed with `time.perf_counter`; peak Python allocation was measured with `tracemalloc`. Reported values are medians. The baseline run outputs were recorded as each run completed before the benchmark process was interrupted during its first optimized repetition; the optimized and Polars runs were then completed with the same benchmark harness and the recorded baseline results. Result CSVs were compared row by row after parsing revenue as decimal, and both optimized outputs matched the baseline.
 
-| Engine | Median wall time | Median peak allocation | Speed-up vs baseline | Memory reduction vs baseline |
-|---|---:|---:|---:|---:|
-| Baseline | 466.040 s | 735,129,242 bytes (700.9 MiB) | 1.00× | 1.00× |
-| Optimized Python | 39.256 s | 25,820,340 bytes (24.6 MiB) | 11.87× | 28.47× |
-| Polars | 2.251 s | 20,703,572 bytes (19.7 MiB) | 207.00× | 35.51× |
+| Optimization step / reference | Measurement scope | Median execution time | Peak memory (`tracemalloc`) | Speed-up vs baseline | Memory reduction vs baseline |
+|---|---|---:|---:|---:|---:|
+| Baseline reference | Deliberately inefficient Python implementation | 466.040 s | 735,129,242 bytes (700.9 MiB) | 1.00× | 1.00× |
+| A. Algorithm optimization | Optimized Python engine, measured jointly with Step B | 39.256 s | 25,820,340 bytes (24.6 MiB) | 11.87× | 28.47× |
+| B. I/O and memory optimization | Same optimized Python run as Step A; not separately isolated | 39.256 s | 25,820,340 bytes (24.6 MiB) | 11.87× | 28.47× |
+| C. Polars vectorization | Polars engine | 2.251 s | 20,703,572 bytes (19.7 MiB) | 207.00× | 35.51× |
+
+Steps A and B are implemented in the same optimized Python engine and were benchmarked together. Their repeated figures identify that combined run; they are not independent measurements of each step's incremental contribution.
 
 Speed-up is baseline median seconds divided by engine median seconds. Memory reduction is baseline median `tracemalloc` peak divided by engine median peak. Both assignment targets (at least 10× faster and 3× lower peak memory) were achieved by the optimized Python engine; Polars also exceeded both targets.
 
